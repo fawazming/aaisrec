@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAIS Receipt</title>
+</head>
+
+<body>
+    <center>
+        <h1>AAIS Receipt</h1>
+    </center>
+    <form action="" id="receipt">
+        <fieldset>
+            <label for="">Name:</label>
+            <input type="text" id="name">
+        </fieldset>
+        <fieldset>
+            <label for="">Payment for:</label>
+            <input type="text" id="payment">
+        </fieldset>
+        <fieldset>
+            <label for="">Paid</label>
+            <input type="number" id="paid">
+        </fieldset>
+        <fieldset>
+            <label for="">Balance</label>
+            <input type="number" id="balance">
+        </fieldset>
+        <fieldset>
+            <label for="">Date</label>
+            <input type="date" id="dater">
+        </fieldset>
+        <center><button type="submit">Print Receipt</button></center>
+    </form>
+
+    <script src="numtowords.js"></script>
+    <script>
+        console.log(convert('103000', 'NGN'));
+        document.querySelector('#receipt').addEventListener('submit', (e)=>{
+            e.preventDefault();
+            let name = document.querySelector('#name').value
+            let payment = document.querySelector('#payment').value
+            let paid = document.querySelector('#paid').value
+            let balance = document.querySelector('#balance').value
+            let dater = document.querySelector('#dater').value
+
+            printCert(name, payment, paid, balance);
+        })
+
+        
+        function printCert(name, payment, paid, balance) {
+                // dt = dt.split('_')
+                // let name = dt[0]
+                // let stars = dt[1]
+                var mywindow = window.open('', 'PRINT');
+
+                mywindow.document.write(`<html><head><title>Rayyantech DLC 1.0 Certificate</title>`);
+                mywindow.document.write('</head><body >');
+                mywindow.document.write(`
+                <main style="font-size:1.5rem; max-width: 80mm; line-height: 20px; font-family: 'Courier New', Courier, monospace;">
+                    <center><img src="logo.jpg" width="90%" alt=""></center>
+                        <center>
+                            <p>---------------- <br><b>School Receipt</b> <br> ---------------- <br></p>
+                        </center>
+                        <h4>Received from ${name} the sum of ${convert(paid, 'NGN')} , being the payment for ${payment} <br> To balance #${balance}</h4>
+                        <center>
+                            <p>${datee()} <br> Jazakumullahu Khayran</p>
+                        </center>
+                </main>
+                `);
+                mywindow.document.write('</body></html>');
+
+                mywindow.document.close(); // necessary for IE >= 10
+                mywindow.focus(); // necessary for IE >= 10*/
+                return true;
+            }
+    </script>
+</body>
+
+</html>
