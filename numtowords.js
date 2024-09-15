@@ -225,7 +225,8 @@ function handleBillions(digits){
 
 function datee() {
     const d = new Date();
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+     months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
 
-    return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+    return `${d.getDate()}-${months[d.getMonth()]}-${d.getFullYear()}`;
 }
