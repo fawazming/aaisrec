@@ -76,17 +76,17 @@
             console.log(name, payment, paid, balance)
             var mywindow = window.open('', 'PRINT');
 
-            mywindow.document.write(`<html><head><title>AAIS Rec</title>`);
+            mywindow.document.write(`<html><head><title>AAIS Rec</title><link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">`);
             mywindow.document.write('</head><body >');
             mywindow.document.write(`
-                <main onclick="sshot()" style="width: 696px; height: 410px; line-height: 15px; font-family: 'Courier New', Courier, monospace; font-weight: 600;">
+                <main onclick="sshot()" style="font-family: sans-serif; font-weight: 900;width: 696px; height: 410px; line-height: 15px;">
                     <img src="./aaisRec.jpg" alt="" style="position: absolute; z-index: -1;" class="">
                         <p style="position: absolute; left: 550px; top: 92px; font-size: 1.3rem;">${datee()}</p>
                         <p style="position: absolute; left: 210px; top: 142px; font-size: 1.3rem; text-transform: uppercase;">${name}</p>
                         <p style="position: absolute; left: 190px; top: 187px; font-size: 1.3rem; text-transform: capitalize;">${payment}</p>
-                        <p style="position: absolute; left: 40px; top: 222px; font-size: 1.2rem; width: 640px; text-transform: capitalize; line-height: 2.2rem;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ${convert(paid, 'NGN')} </p>
-                        <p style="position: absolute; left: 50px; top: 337px; font-size: 2.4rem; text-transform: capitalize;">&#x20a6;${formatter.format(paid)}</p>
-                        <p style="position: absolute; left: 400px; top: 337px; font-size: 2.4rem; text-transform: capitalize;">&#x20a6;${formatter.format(balance)}</p>
+                        <p style="position: absolute; left: 40px; top: 222px; font-size: 1.2rem; width: 640px; text-transform: capitalize; line-height: 2.2rem;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; ${convert(paid, 'NGN')} </p>
+                        <p style="position: absolute; left: 50px; top: 334px; font-size: 2.4rem; text-transform: capitalize;">&#x20a6;${formatter.format(paid)}</p>
+                        <p style="position: absolute; left: 400px; top: 334px; font-size: 2.4rem; text-transform: capitalize;">&#x20a6;${formatter.format(balance)}</p>
                 </main>
                 `);
             mywindow.document.write(document.querySelector('#jargons').innerHTML);
