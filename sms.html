@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAIS SMS Sender</title>
+    <link rel="stylesheet" href="water.css">
+</head>
+
+<body>
+    <center>
+        <h1>AAIS SMS</h1>
+    </center>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
+        <div id="ppayment">
+            <h2>List of SMS to sent <a href="#!" onclick="sendall()">Send All At Once</a></h2>
+            <main id="app">
+
+            </main>
+        </div>
+    </div>
+    <!-- <a href="sms:07061811568?&amp;body=Hello%2520I%252C%2520have%2527a%2520question%25">Click here to text our team</a> -->
+    <script>
+        function sendall() {
+            let dta = data.rows
+            for (let i = 0; i < dta.length; i++) {
+                console.log(dta)
+                sender(dta[i].Message, dta[i].Phone);
+            }
+        }
+
+        async function sender(msg, phone) {
+            let headersList = {
+                "Accept": "*/*",
+                "Authorization": "Bearer 1|iknqxCgYjD8Aszn3C4nEsCDoNk2wUj36DfmF4YEA"
+            }
+
+            let bodyContent = new FormData();
+            bodyContent.append("device_id", "5");
+            bodyContent.append("subscriber_id", "1");
+            bodyContent.append("to_numbers", `${phone}`);
+            bodyContent.append("body", `${msg}`);
+            bodyContent.append("isSchedule", "");
+            bodyContent.append("schedule", "");
+
+            let response = await fetch("https://bulksms.sgm.ng/api/sent/compose", {
+                method: "POST",
+                body: bodyContent,
+                headers: headersList
+            });
+
+            let data = await response.json();
+            console.log(data);
+            return data;
+        }
+
+
+
+        const data = { "rows": [] }
+        function popu() {
+            console.log(data);
+            let output = '<ul>';
+            for (let i = 0; i < data.rows.length; i++) {
+                output += `<li> <a href="#!" onclick="sender('${data.rows[i].Message}','${data.rows[i].Phone}')"> Send "${data.rows[i].Message}" to ${data.rows[i].Phone}</a></li>`;
+            }
+            output += `</ul>`
+            document.querySelector('#app').innerHTML = output;
+        }
+        window.addEventListener('load', (() => {
+            const endpoint = `https://sheet.spacet.me/14974dKXMoOKit2NUBDWFu_39et6pY5fXjFjiShlMHtg/SendMessage.json`
+            async function fetchD() {
+                await fetch(endpoint)
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Unable to load data from ' + endpoint)
+                        }
+                        return response.json()
+                    })
+                    .then((dat) => {
+                        const [header, ...rows] = dat.values
+                        const ndata = rows.map(row => {
+                            const entries = header.map((key, i) => [key, row[i]])
+                            return Object.fromEntries(entries)
+                        })
+                        data.rows = ndata;
+
+                        // console.log(data.rows);
+                        popu()
+                        return ndata;
+                    })
+                    .catch((e) => {
+                        console.error(e);
+                    });
+            }
+            fetchD()
+
+            // console.log(tempd)
+        }))
+
+    </script>
+</body>
+
+</html>
