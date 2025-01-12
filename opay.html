@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opay Receipt</title>
+    <link rel="stylesheet" href="water.css">
+</head>
+
+<body>
+    <center>
+        <h1>AAIS Receipt</h1>
+    </center>
+    <form action="" id="receipt">
+        <fieldset>
+            <label for="">Name:</label>
+            <input type="text" id="name">
+        </fieldset>
+        <fieldset>
+            <label for="">Payment for:</label>
+            <input type="text" id="payment">
+        </fieldset>
+        <fieldset>
+            <label for="">Paid</label>
+            <input type="number" id="paid">
+        </fieldset>
+        <fieldset>
+            <label for="">Balance</label>
+            <input type="number" id="balance">
+        </fieldset>
+        <center><button type="submit">Print Receipt</button> <button type="button" id="newre">Print New Receipt</button>
+        </center>
+    </form>
+    <div id="jargons" style="display: none;">
+        <script src="mmm.js"></script>
+        <script>
+            function sshot() {
+                html2canvas(document.querySelector('main')).then(canvas => {
+                    let a = document.createElement("a");
+                    a.download = "AAIS_rec.png";
+                    a.href = canvas.toDataURL("image/png");
+                    a.click(); // MAY NOT ALWAYS WORK!
+                });
+            }
+        </script>
+    </div>
+    <script src="numtowords.js"></script>
+    <script>
+        console.log(convert('103000', 'NGN'));
+        document.querySelector('#receipt').addEventListener('submit', (e) => {
+            e.preventDefault();
+            let name = document.querySelector('#name').value
+            let payment = document.querySelector('#payment').value
+            let paid = document.querySelector('#paid').value
+            let balance = document.querySelector('#balance').value
+            // let dater = document.querySelector('#dater').value
+
+            printCert(name, payment, paid, balance);
+        })
+
+        document.querySelector('#newre').addEventListener('click', () => {
+            // e.preventDefault();
+            let name = document.querySelector('#name').value
+            let payment = document.querySelector('#payment').value
+            let paid = document.querySelector('#paid').value
+            let balance = document.querySelector('#balance').value
+            // let dater = document.querySelector('#dater').value
+
+            printRec(name, payment, paid, balance);
+        })
+
+        function printRec(name, payment, paid, balance) {
+
+            const formatter = new Intl.NumberFormat('en-US');
+            console.log(name, payment, paid, balance)
+            var mywindow = window.open('', 'PRINT');
+
+            mywindow.document.write(`<html><head><title>AAIS Rec</title><link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">`);
+            mywindow.document.write('</head><body >');
+            mywindow.document.write(`
+                <main onclick="sshot()" style="font-family: sans-serif; font-weight: 900;width: 696px; height: 410px; line-height: 15px;">
+                    <img src="./aaisRec.jpg" alt="" style="position: absolute; z-index: -1;" class="">
+                        <p style="position: absolute; left: 550px; top: 92px; font-size: 1.3rem;">${datee()}</p>
+                        <p style="position: absolute; left: 210px; top: 142px; font-size: 1.3rem; text-transform: uppercase;">${name}</p>
+                        <p style="position: absolute; left: 190px; top: 187px; font-size: 1.3rem; text-transform: capitalize;">${payment}</p>
+                        <p style="position: absolute; left: 40px; top: 222px; font-size: 1.2rem; width: 640px; text-transform: capitalize; line-height: 2.2rem;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; ${convert(paid, 'NGN')} </p>
+                        <p style="position: absolute; left: 50px; top: 334px; font-size: 2.4rem; text-transform: capitalize;">&#x20a6;${formatter.format(paid)}</p>
+                        <p style="position: absolute; left: 400px; top: 334px; font-size: 2.4rem; text-transform: capitalize;">&#x20a6;${formatter.format(balance)}</p>
+                </main>
+                `);
+            mywindow.document.write(document.querySelector('#jargons').innerHTML);
+            mywindow.document.write(`</body></html>`);
+
+
+
+            mywindow.document.close(); // necessary for IE >= 10
+            mywindow.focus(); // necessary for IE >= 10*/
+            return true;
+        }
+
+        function printCert(name, payment, paid, balance) {
+            var mywindow = window.open('', 'PRINT');
+
+            mywindow.document.write(`<html><head><title>Rayyantech DLC 1.0 Certificate</title>`);
+            mywindow.document.write('</head><body >');
+            mywindow.document.write(`
+                <main style="font-size:1.5rem; max-width: 80mm; line-height: 20px; font-family: 'Courier New', Courier, monospace;">
+                    <center><img src="logo.jpg" width="90%" alt=""></center>
+                        <center>
+                            <p>---------------- <br><b>School Receipt</b> <br> ---------------- <br></p>
+                        </center>
+                        <h4>Received from ${name} the sum of ${convert(paid, 'NGN')} , being the payment for ${payment} <br> To balance #${balance}</h4>
+                        <center>
+                            <p>${datee()} <br> Jazakumullahu Khayran</p>
+                        </center>
+                </main>
+                `);
+            mywindow.document.write('</body></html>');
+
+            mywindow.document.close(); // necessary for IE >= 10
+            mywindow.focus(); // necessary for IE >= 10*/
+            return true;
+        }
+    </script>
+</body>
+
+</html>
